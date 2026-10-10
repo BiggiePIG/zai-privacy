@@ -49,6 +49,13 @@
     a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border); }
     a:hover { border-color: var(--accent); }
     footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+      background: #f0ebe2;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
@@ -56,7 +63,7 @@
 
   <header>
     <h1>在 · 隐私政策</h1>
-    <p>最后更新：2026 年 7 月 16 日 &nbsp;|&nbsp; 适用版本：1.0.0 及以上</p>
+    <p>最后更新：2026 年 10 月 10 日 &nbsp;|&nbsp; 适用版本：1.0.0 及以上</p>
   </header>
 
   <div class="highlight">
@@ -73,24 +80,26 @@
   <ul>
     <li>你在 App 内创建的私人语录（private）</li>
     <li>点亮记录与欢迎引导状态</li>
-    <li>App 偏好设置</li>
+    <li>App 偏好设置（例如是否同时显示系统语录等）</li>
   </ul>
-  <p>以上数据保存在你的设备 Keychain 与本地存储中，卸载 App 后随之清除。</p>
+  <p>以上数据保存在你的设备本地（含 Keychain 与本地偏好存储）。卸载 App 后，偏好与点亮记录等通常随之清除；保存在 Keychain 中的数据（如语录、设备标识）在部分系统上<strong>可能仍然保留</strong>，再次安装时或许会读到旧数据。你也可通过系统设置清除本 App 数据，或联系我们协助处理云端相关数据。</p>
 
-  <p><strong>② 配对同步数据（仅在你主动启用配对功能后上传）</strong></p>
+  <p><strong>② 配对同步数据（仅在你主动使用配对功能后上传）</strong></p>
+  <p>未使用配对时，我们不会为你创建云端匿名账号，也不会同步点击事件或语录。当你开始<strong>生成或加入配对</strong>时，才会进行匿名登录并上传下列必要数据：</p>
   <ul>
     <li><strong>匿名用户 ID</strong>：由系统随机生成，不关联任何真实身份信息</li>
     <li><strong>设备 ID</strong>：用于配对身份识别，不关联广告标识符</li>
     <li><strong>配对关系</strong>：你与另一方的配对状态</li>
-    <li><strong>点击事件时间戳</strong>：用于「心跳同频」功能，不关联个人身份</li>
-    <li><strong>分享语录密文</strong>：你标记为「分享」的语录在上传前经过端对端加密（AES-256-GCM），服务端仅存储密文，无法读取明文内容</li>
+    <li><strong>点击事件时间戳</strong>：用于「心跳同频」与「余温」短时邻近轻提示，不关联个人身份，不作为常驻在线状态，亦不展示对方精确点亮钟点，更不会通过推送告知对方</li>
+    <li><strong>分享语录密文</strong>：你标记为「分享」的语录在上传前经过客户端加密（AES-256-GCM），服务端仅存储密文</li>
   </ul>
 
   <h2>三、端对端加密说明</h2>
-  <p>分享语录采用 AES-256-GCM 客户端加密，密钥由配对码派生并仅保存在双方设备本地。这意味着：</p>
+  <p>分享语录采用 AES-256-GCM 在客户端加密后上云，密钥由双方持有的配对码在本地派生。这意味着：</p>
   <ul>
-    <li>服务端（包括我们）无法读取你的分享语录内容</li>
-    <li>如果你卸载 App 或更换设备，历史分享语录将无法恢复（这是加密设计的必然限制）</li>
+    <li>云端以密文形式存储分享语录，运营者在日常运营中无法阅读其明文内容</li>
+    <li>请妥善保管配对码；密钥仅保存在双方设备本地</li>
+    <li>如果你卸载 App 或更换设备，历史分享语录通常无法恢复（这是当前加密与产品设计的必然限制）</li>
   </ul>
 
   <h2>四、数据存储与安全</h2>
@@ -98,30 +107,32 @@
 
   <h2>五、第三方服务</h2>
   <ul>
-    <li><strong>Supabase</strong>：提供后端存储与实时同步（仅在配对模式下使用）</li>
-    <li><strong>Google Fonts</strong>：App 启动时可能从 Google CDN 加载字体文件。此连接不携带任何用户标识信息</li>
+    <li><strong>Supabase</strong>：提供匿名登录（Anonymous Auth）、后端存储与实时同步（仅在配对相关流程中使用）</li>
+    <li><strong>Google Fonts</strong>：App 启动或展示文案时可能从 Google CDN 加载字体文件。此连接不携带用于识别你个人身份的账号信息</li>
+    <li><strong>GitHub Pages</strong>：本隐私政策页面由 GitHub Pages 托管，用于对外展示政策文本，不由此收集 App 内的用户业务数据</li>
   </ul>
   <p>我们不集成任何广告 SDK、统计分析 SDK 或跨 App 追踪框架。</p>
 
   <h2>六、你的权利</h2>
   <ul>
-    <li><strong>访问与导出</strong>：你可以在 App 内查看所有本机语录</li>
-    <li><strong>删除本机数据</strong>：卸载 App 即可清除本机所有数据</li>
-    <li><strong>解除配对</strong>：可在 App 内解除与对方的连线；将删除本次配对关系、心跳记录，以及你上传的分享语录</li>
-    <li><strong>清除云端数据</strong>：可在 App 配对页使用「清除云端数据」，删除云端匿名身份、配对关系与已上传的分享语录。本机私人语录仍保留。如遇异常，也可发邮件至 <a href="mailto:youshangbawang@183.com">youshangbawang@183.com</a>，我们将在 15 个工作日内协助处理</li>
+    <li><strong>访问</strong>：你可以在 App 内查看与管理所有本机语录</li>
+    <li><strong>删除本机数据</strong>：卸载 App 或通过系统设置清除本 App 数据；请注意 Keychain 中部分数据在卸载后仍可能残留（见第二节）</li>
+    <li><strong>解除配对</strong>：可在 App 内解除与对方的连线。成功后将结束本次配对关系、删除相关点击记录，以及<strong>你上传的</strong>分享语录；本机私人语录仍保留。对方设备上的本地数据需由对方自行处理</li>
+    <li><strong>清除云端数据</strong>：可在 App 配对页使用「清除云端数据」，删除你的云端匿名身份、配对关系与已上传的分享语录，并退出匿名登录。本机私人语录仍保留。如遇异常，也可发邮件至 <a href="mailto:youshangbawang@183.com">youshangbawang@183.com</a>，我们将在 15 个工作日内协助处理</li>
   </ul>
 
   <h2>七、儿童隐私</h2>
   <p>「在」不面向 13 岁以下儿童，也不会故意收集此类用户的个人信息。</p>
 
   <h2>八、隐私政策变更</h2>
-  <p>我们可能不定期更新本政策。重大变更将通过 App 内通知或更新本页面「最后更新」日期的方式告知。继续使用 App 视为接受更新后的政策。</p>
+  <p>我们可能不定期更新本政策。更新后，我们将以本页面「最后更新」日期为准。继续使用 App 视为接受更新后的政策。如有重大变更，我们也可能通过文末邮箱与你沟通（如适用）。</p>
 
   <h2>九、联系我们</h2>
   <p>如对本隐私政策有任何疑问，请发邮件至：<a href="mailto:youshangbawang@183.com">youshangbawang@183.com</a></p>
 
   <footer>
     <p>© 2026 在 App &nbsp;|&nbsp; <a href="mailto:youshangbawang@183.com">youshangbawang@183.com</a></p>
+    <p style="margin-top: 8px;">本页地址：<a href="https://biggiepig.github.io/zai-privacy/">https://biggiepig.github.io/zai-privacy/</a></p>
   </footer>
 
 </div>
